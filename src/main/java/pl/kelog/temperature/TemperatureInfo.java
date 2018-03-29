@@ -1,4 +1,4 @@
-package pl.kelog.tempdatabackend;
+package pl.kelog.temperature;
 
 import lombok.Data;
 

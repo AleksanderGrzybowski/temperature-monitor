@@ -1,12 +1,12 @@
-package pl.kelog.tempdatabackend;
+package pl.kelog.temperature;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class TempdataBackendApplication {
+public class TemperatureMonitorApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(TempdataBackendApplication.class, args);
+		SpringApplication.run(TemperatureMonitorApplication.class, args);
 	}
 }
