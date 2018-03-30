@@ -14,16 +14,13 @@ import javax.validation.constraints.NotNull;
 @ResponseBody
 @RequiredArgsConstructor
 @Validated
-public class AppController {
+class AppController {
     
     private final TemperatureInfoRepository repository;
     
     @RequestMapping(value = "/api/store", method = RequestMethod.POST)
     public ResponseEntity<TemperatureInfo> store(@RequestBody @Valid ReadingDto dto) {
-        TemperatureInfo info = new TemperatureInfo();
-        info.setPlace(dto.getPlace());
-        info.setTemperature(dto.getTemperature());
-        repository.save(info);
+        TemperatureInfo info = repository.save(createTemperatureInfo(dto));
         return new ResponseEntity<>(info, HttpStatus.CREATED);
     }
     
@@ -33,6 +30,13 @@ public class AppController {
         private String place;
         
         @NotNull
-        private Double temperature;
+        private double temperature;
+    }
+    
+    private TemperatureInfo createTemperatureInfo(ReadingDto dto) {
+        TemperatureInfo info = new TemperatureInfo();
+        info.setPlace(dto.getPlace());
+        info.setTemperature(dto.getTemperature());
+        return info;
     }
 }
