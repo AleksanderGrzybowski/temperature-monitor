@@ -1,35 +1,23 @@
 const ds18b20 = require('ds18b20');
-const axios = require('axios');
 
-const config = {
-    API_URL: process.env.API_URL || 'http://localhost:8080/api/store',
-    INTERVAL: process.env.INTERVAL || 10,
-    PLACE: process.env.PLACE || 'raspberry'
-};
+const config = require('./config');
 
-function sendToServer(temperature) {
-    const body = {place: config.PLACE, temperature};
-
-    console.log('Prepared request body:');
-    console.log(body);
-
-    console.log('Sending...');
-    axios.post(config.API_URL, body)
-      .then(() => console.log('Sent sucessfully.'))
-      .catch(e => {
-          console.error('Error sending the request!');
-          console.error(e);
-      });
+let sendToServer;
+if (config.BACKEND_TYPE === 'rest') {
+    sendToServer = require('./sendToRestServer');
+} else if (config.BACKEND_TYPE === 'mysql') {
+    sendToServer = require('./sendToMysqlServer')
 }
 
 function readSensor(sensorId, sendCallback) {
     console.log(`Reading the sensor ${sensorId}...`);
+    
     ds18b20.temperature(sensorId, function (err, temperature) {
         if (err) {
             console.error('Failed to read the sensor!');
             console.error(err);
         }
-        
+
         console.log(`Current temperature is ${temperature}, sending to server...`);
         sendCallback(temperature);
     });
