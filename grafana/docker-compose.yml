@@ -1,0 +1,10 @@
+version: '3'
+services:
+  grafana:
+    build: .
+    ports:
+    - 3000:3000
+    environment:
+      GF_DASHBOARDS_JSON_ENABLED: 'true'
+      GF_DASHBOARDS_JSON_PATH: /dashboards
+      GF_AUTH_ANONYMOUS_ENABLED: 'true'
