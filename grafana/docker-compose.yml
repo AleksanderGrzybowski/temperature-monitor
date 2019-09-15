@@ -5,6 +5,19 @@ services:
     ports:
     - 3000:3000
     environment:
+      MYSQL_HOST: 'mysql:3306'
+      MYSQL_USERNAME: root
+      MYSQL_PASSWORD: mysql-let-me-in
+      MYSQL_DATABASE: temperature
       GF_DASHBOARDS_JSON_ENABLED: 'true'
       GF_DASHBOARDS_JSON_PATH: /dashboards
       GF_AUTH_ANONYMOUS_ENABLED: 'true'
+  mysql:
+    image: mysql:5.7
+    ports:
+    - 3306:3306
+    environment:
+      MYSQL_DATABASE: temperature
+      MYSQL_ROOT_PASSWORD: mysql-let-me-in
+
+

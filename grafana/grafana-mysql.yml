@@ -2,7 +2,7 @@ datasources:
   - name: mysql
     type: mysql
     access: proxy
-    url: mysql:3306
-    database: temperature
-    user: root
-    password: root
+    url: '${MYSQL_HOST}'
+    database: '${MYSQL_DATABASE}'
+    user: '${MYSQL_USERNAME}'
+    password: '${MYSQL_PASSWORD}'
