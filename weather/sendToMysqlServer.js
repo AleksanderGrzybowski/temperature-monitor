@@ -9,7 +9,7 @@ const createTable = 'create table if not exists temperature_info ('
     + ') ENGINE=MyISAM AUTO_INCREMENT = 10 DEFAULT CHARSET =latin1';
 const insertQuery = 'insert into temperature_info(date_time, place, temperature) values (?, ?, ?)';
 
-module.exports = function sendToServer(temperature) {
+module.exports = function sendToServer(place, temperature) {
     const connection = mysql.createConnection({
         host: config.MYSQL_HOST,
         port: config.MYSQL_PORT,
@@ -36,7 +36,9 @@ module.exports = function sendToServer(temperature) {
             console.log("Table is present.");
 
             console.log(`Pushing new reading, temperature = ${temperature}...`);
-            connection.query(insertQuery, [new Date(), config.PLACE, temperature], err => {
+            let date = new Date();
+            date.setHours(date.getHours() - 2);
+            connection.query(insertQuery, [date, place, temperature], err => {
                     if (err) {
                         console.error("Insert failed!");
                         console.error(err);

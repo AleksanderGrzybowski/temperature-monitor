@@ -4,7 +4,7 @@ module.exports = {
   MYSQL_USER: process.env.MYSQL_USER || 'root',
   MYSQL_PASSWORD: process.env.MYSQL_PASSWORD || 'root',
   MYSQL_DATABASE: process.env.MYSQL_DATABASE || 'temperature',
-  
-  INTERVAL: process.env.INTERVAL || 5,
-  PLACE: process.env.PLACE || 'raspberry'
+
+  APPID: process.env.APPID || 'fake_app_id',
+  CITIES: process.env.CITIES || 'Ustron,Skoczow,Wisla'
 };
