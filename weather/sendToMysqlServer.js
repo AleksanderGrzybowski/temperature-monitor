@@ -36,9 +36,7 @@ module.exports = function sendToServer(place, temperature) {
             console.log("Table is present.");
 
             console.log(`Pushing new reading, temperature = ${temperature}...`);
-            let date = new Date();
-            date.setHours(date.getHours() - 2);
-            connection.query(insertQuery, [date, place, temperature], err => {
+            connection.query(insertQuery, [new Date(), place, temperature], err => {
                     if (err) {
                         console.error("Insert failed!");
                         console.error(err);

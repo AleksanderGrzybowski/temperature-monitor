@@ -15,6 +15,7 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
+  "id": 2,
   "links": [],
   "panels": [
     {
@@ -81,13 +82,34 @@
         {
           "alias": "",
           "format": "table",
-          "rawSql": "SELECT temperature as 'value'\nFROM temperature_info\nwhere date_time = (select max(date_time) from temperature_info)\n",
-          "refId": "A"
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT temperature as 'value'\nFROM temperature_info\nwhere place = 'Ustron' and date_time = (select max(date_time) from temperature_info)\n",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
         }
       ],
       "thresholds": "",
       "timeFrom": null,
-      "title": "Teraz:",
+      "title": "Teraz (Ustroń):",
       "type": "singlestat",
       "valueFontSize": "100%",
       "valueMaps": [
@@ -144,12 +166,34 @@
         {
           "alias": "",
           "format": "time_series",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
           "rawSql": "SELECT\n  UNIX_TIMESTAMP(date_time) as time_sec,\n  temperature as 'value',\n  place as metric\nFROM temperature_info\nWHERE $__timeFilter(date_time)\nORDER BY date_time ASC\n",
-          "refId": "A"
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
         }
       ],
       "thresholds": [],
       "timeFrom": null,
+      "timeRegions": [],
       "timeShift": null,
       "title": "Temperatura",
       "tooltip": {
@@ -172,8 +216,8 @@
           "format": "short",
           "label": "° C",
           "logBase": 1,
-          "max": "35",
-          "min": "10",
+          "max": "20",
+          "min": "-5",
           "show": true
         },
         {
@@ -184,7 +228,11 @@
           "min": null,
           "show": false
         }
-      ]
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
     }
   ],
   "refresh": "5s",
@@ -195,7 +243,7 @@
     "list": []
   },
   "time": {
-    "from": "now-24h",
+    "from": "now-1h",
     "to": "now"
   },
   "timepicker": {
@@ -226,5 +274,5 @@
   "timezone": "",
   "title": "Temperatura w domu",
   "uid": "HEJaiuzmk",
-  "version": 6
+  "version": 3
 }
